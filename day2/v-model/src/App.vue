@@ -12,7 +12,7 @@ const showName = ()=>{
 </script>
 
 <template>
-  <h1>You did it!</h1>
+  <h1>v-model</h1>
   <input type="text" placeholder="name" v-model="name">
    <button @click="showName">add me</button>
    
