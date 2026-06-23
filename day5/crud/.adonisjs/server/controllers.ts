@@ -5,6 +5,8 @@
 
 export const controllers = {
   AccessTokens: () => import('#controllers/access_tokens_controller'),
+  Auth: () => import('#controllers/auth_controller'),
+  ForceJsonResponseMiddleware: () => import('#controllers/force_json_response_middleware'),
   NewAccount: () => import('#controllers/new_account_controller'),
   Posts: () => import('#controllers/posts_controller'),
   Profile: () => import('#controllers/profile_controller'),

@@ -10,8 +10,10 @@
 // import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 // import { controllers } from '#generated/controllers'
+import { middleware } from '#start/kernel'
 
 const PostsController = () => import('#controllers/posts_controller')
+const AuthController = () => import('../app/controllers/auth_controller.ts')
 
 router.get('/', () => {
   return { hello: 'world' }
@@ -40,15 +42,25 @@ router.get('/', () => {
 
 //
 
+// router
+//   .group(() => {
+//     router.get('/', [PostsController, 'index'])
+//     router.get('/:id', [PostsController, 'show'])
+//     router.post('/', [PostsController, 'store'])
+//     router.put('/:id', [PostsController, 'update'])
+//     router.delete('/:id', [PostsController, 'destroy'])
+//   })
+//   .prefix('/posts')
+
+router.post('/register', [AuthController, 'register'])
+router.post('/login', [AuthController, 'login'])
+
 router
   .group(() => {
-    router.get('/', [PostsController, 'index'])
-    router.get('/:id', [PostsController, 'show'])
-    router.post('/', [PostsController, 'store'])
-    router.put('/:id', [PostsController, 'update'])
-    router.delete('/:id', [PostsController, 'destroy'])
+    router.resource('posts', PostsController).except(['destroy'])
   })
-  .prefix('/posts')
+  .use(middleware.auth())
+//its create all routes with id automatic
 
 // router.get('/posts', [PostsController, 'index'])
 
