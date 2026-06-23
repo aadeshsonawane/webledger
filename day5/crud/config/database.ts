@@ -3,7 +3,7 @@ import app from '@adonisjs/core/services/app'
 import { defineConfig } from '@adonisjs/lucid'
 
 const dbConfig = defineConfig({
-  // Default connection — MySQL use karenge
+  // Default connection — MySQL use
   connection: 'mysql',
 
   connections: {

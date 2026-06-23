@@ -40,12 +40,22 @@ router.get('/', () => {
 
 //
 
-router.get('/posts', [PostsController, 'index'])
+router
+  .group(() => {
+    router.get('/', [PostsController, 'index'])
+    router.get('/:id', [PostsController, 'show'])
+    router.post('/', [PostsController, 'store'])
+    router.put('/:id', [PostsController, 'update'])
+    router.delete('/:id', [PostsController, 'destroy'])
+  })
+  .prefix('/posts')
 
-router.get('/posts/:id', [PostsController, 'show'])
+// router.get('/posts', [PostsController, 'index'])
 
-router.post('/posts', [PostsController, 'store'])
+// router.get('/posts/:id', [PostsController, 'show'])
 
-router.put('/posts/:id', [PostsController, 'update'])
+// router.post('/posts', [PostsController, 'store'])
 
-router.delete('/posts/:id', [PostsController, 'destroy'])
+// router.put('/posts/:id', [PostsController, 'update'])
+
+// router.delete('/posts/:id', [PostsController, 'destroy'])

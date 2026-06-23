@@ -1,4 +1,4 @@
-// HttpContext import karo — request aur response ke liye
+// HttpContext import for request and response
 import type { HttpContext } from '@adonisjs/core/http'
 
 import Post from '#models/post'
