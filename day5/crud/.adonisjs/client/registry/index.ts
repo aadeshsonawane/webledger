@@ -54,6 +54,12 @@ const routes = {
     tokens: [{"old":"/posts/:id","type":0,"val":"posts","end":""},{"old":"/posts/:id","type":1,"val":"id","end":""}],
     types: placeholder as Registry['posts.update']['types'],
   },
+  'posts.destroy': {
+    methods: ["DELETE"],
+    pattern: '/posts/:id',
+    tokens: [{"old":"/posts/:id","type":0,"val":"posts","end":""},{"old":"/posts/:id","type":1,"val":"id","end":""}],
+    types: placeholder as Registry['posts.destroy']['types'],
+  },
 } as const satisfies Record<string, AdonisEndpoint>
 
 export { routes }

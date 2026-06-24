@@ -13,5 +13,6 @@ export interface ApiDefinition {
     show: typeof routes['posts.show']
     edit: typeof routes['posts.edit']
     update: typeof routes['posts.update']
+    destroy: typeof routes['posts.destroy']
   }
 }

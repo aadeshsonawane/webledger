@@ -33,10 +33,10 @@ export class AuthAccessTokenSchema extends BaseModel {
 }
 
 export class PostSchema extends BaseModel {
-  static $columns = ['author', 'content', 'createdAt', 'id', 'title', 'updatedAt'] as const
+  static $columns = ['author', 'content', 'createdAt', 'id', 'title', 'updatedAt', 'userId'] as const
   $columns = PostSchema.$columns
   @column()
-  declare author: string
+  declare author: string | null
   @column()
   declare content: string
   @column.dateTime({ autoCreate: true })
@@ -47,6 +47,8 @@ export class PostSchema extends BaseModel {
   declare title: string
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+  @column()
+  declare userId: number
 }
 
 export class UserSchema extends BaseModel {

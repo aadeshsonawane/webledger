@@ -5,7 +5,7 @@ export default class AuthController {
   async register({ request, response }: HttpContext) {
     const data = request.only(['fullName', 'email', 'password'])
 
-    const user = await User.create(data)
+    const user = await User.create(data) //save n database
 
     return response.created(user)
   }
@@ -13,9 +13,9 @@ export default class AuthController {
   async login({ request }: HttpContext) {
     const { email, password } = request.only(['email', 'password'])
 
-    const user = await User.verifyCredentials(email, password)
+    const user = await User.verifyCredentials(email, password) //verify with register
 
-    const token = await User.accessTokens.create(user)
+    const token = await User.accessTokens.create(user) //create token
 
     return {
       token: token.value!.release(),

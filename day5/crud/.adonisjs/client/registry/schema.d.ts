@@ -15,8 +15,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['register']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['register']>>>
     }
   }
   'auth.login': {
@@ -27,8 +27,8 @@ export interface Registry {
       paramsTuple: []
       params: {}
       query: {}
-      response: unknown
-      errorResponse: unknown
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['login']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/auth_controller').default['login']>>>
     }
   }
   'posts.index': {
@@ -101,6 +101,18 @@ export interface Registry {
       query: {}
       response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>>
       errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['update']>>>
+    }
+  }
+  'posts.destroy': {
+    methods: ["DELETE"]
+    pattern: '/posts/:id'
+    types: {
+      body: {}
+      paramsTuple: [ParamValue]
+      params: { id: ParamValue }
+      query: {}
+      response: ExtractResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['destroy']>>>
+      errorResponse: ExtractErrorResponse<Awaited<ReturnType<import('#controllers/posts_controller').default['destroy']>>>
     }
   }
 }
