@@ -4,6 +4,7 @@ import axios from 'axios'
 import Login from './Login.vue'
 import Register from './Register.vue'
 
+const user = ref(null)
 const base_url = "http://localhost:3333/posts"
 
 const isLoggedIn = ref(!!localStorage.getItem('token'))
@@ -14,24 +15,33 @@ const posts = ref([])
 const form = ref({
   title: '',
   content: '',
-  author: '',
 })
 
 const editingId = ref(null)
 
 const token = () => localStorage.getItem('token')
 
-// ---------------- AUTH ----------------
+
 const handleLoginSuccess = () => {
   isLoggedIn.value = true
+
+  const storedUser = localStorage.getItem('user')
+
+  if (storedUser) {
+    user.value = JSON.parse(storedUser)
+  }
+
+  getPosts()
 }
 
 const logout = () => {
   localStorage.removeItem('token')
+  localStorage.removeItem('user')
+
+  user.value = null
   isLoggedIn.value = false
 }
 
-// ---------------- POSTS ----------------
 const getPosts = async () => {
   const res = await axios.get(base_url, {
     headers: { Authorization: `Bearer ${token()}` }
@@ -54,7 +64,7 @@ const savePost = async () => {
     )
   }
 
-  form.value = { title: '', content: '', author: '' }
+  form.value = { title: '', content: '' }
   editingId.value = null
   await getPosts()
 }
@@ -71,8 +81,13 @@ const deletePost = async (id) => {
   await getPosts()
 }
 
-// ---------------- INIT ----------------
 onMounted(() => {
+  const storedUser = localStorage.getItem('user')
+
+  if (storedUser) {
+    user.value = JSON.parse(storedUser)
+    // console.log('user.value:', user.value)
+  }
   if (isLoggedIn.value) {
     getPosts()
   }
@@ -80,13 +95,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- LOGIN / REGISTER -->
+  
   <div v-if="!isLoggedIn">
-    
-    <Login 
-      v-if="!showRegister"
-      @loginSuccess="handleLoginSuccess"
-    />
+
+    <Login v-if="!showRegister" @loginSuccess="handleLoginSuccess" />
 
     <Register v-else />
 
@@ -99,14 +111,15 @@ onMounted(() => {
   <!-- CRUD -->
   <div v-else>
     <h1>Posts CRUD</h1>
-
+    <p v-if="user">
+      Hello {{ user.fullName }}
+    </p>
     <button @click="logout">Logout</button>
 
     <h3>Create / Update Post</h3>
 
     <input v-model="form.title" placeholder="Title" />
     <input v-model="form.content" placeholder="Content" />
-    <input v-model="form.author" placeholder="Author" />
 
     <button @click="savePost">
       {{ editingId ? 'Update' : 'Create' }}
@@ -117,7 +130,6 @@ onMounted(() => {
         <th>ID</th>
         <th>Title</th>
         <th>Content</th>
-        <th>Author</th>
         <th>Actions</th>
       </tr>
 
@@ -125,7 +137,7 @@ onMounted(() => {
         <td>{{ post.id }}</td>
         <td>{{ post.title }}</td>
         <td>{{ post.content }}</td>
-        <td>{{ post.author }}</td>
+
 
         <td>
           <button @click="editPost(post)">Edit</button>

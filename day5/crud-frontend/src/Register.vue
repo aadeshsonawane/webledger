@@ -16,7 +16,7 @@ const register = async () => {
   )
 
   alert('Register successful')
-  form.value = { fullName: '', email: '', password: '' }
+  form.value = { fullName: '', email: '', password: '' } //clean input 
    emit('goToLogin')
 }
 </script>
