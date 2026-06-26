@@ -14,11 +14,6 @@ export type ScannedRoutes = {
     'posts.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'posts.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
   }
-  POST: {
-    'auth.register': { paramsTuple?: []; params?: {} }
-    'auth.login': { paramsTuple?: []; params?: {} }
-    'posts.store': { paramsTuple?: []; params?: {} }
-  }
   GET: {
     'posts.index': { paramsTuple?: []; params?: {} }
     'posts.create': { paramsTuple?: []; params?: {} }
@@ -30,6 +25,11 @@ export type ScannedRoutes = {
     'posts.create': { paramsTuple?: []; params?: {} }
     'posts.show': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'posts.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+  }
+  POST: {
+    'auth.register': { paramsTuple?: []; params?: {} }
+    'auth.login': { paramsTuple?: []; params?: {} }
+    'posts.store': { paramsTuple?: []; params?: {} }
   }
   PUT: {
     'posts.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }

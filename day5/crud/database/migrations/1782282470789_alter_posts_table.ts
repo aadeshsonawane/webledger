@@ -4,12 +4,10 @@ export default class extends BaseSchema {
   protected tableName = 'posts'
 
   async up() {
-    this.schema.alterTable(this.tableName, (table) => {
-    })
+    this.schema.alterTable(this.tableName, (_table) => {})
   }
 
   async down() {
-    this.schema.alterTable(this.tableName, (table) => {
-    })
+    this.schema.alterTable(this.tableName, (_table) => {})
   }
 }

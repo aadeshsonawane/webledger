@@ -21,7 +21,7 @@ export default class PostsController {
 
   async store({ request, auth, response }: HttpContext) {
     //create post
-    const user = (await auth.authenticate()) as User //  find user
+    const user = (await auth.authenticate()) as User
     const data = request.only(['title', 'content'])
     const post = await Post.create({
       ...data,
@@ -49,6 +49,6 @@ export default class PostsController {
       return response.notFound({ message: 'Post not found' })
     }
     await post.delete()
-    return response.ok({ message: 'Post deleted' })
+    return response.ok({ message: 'deleted' })
   }
 }

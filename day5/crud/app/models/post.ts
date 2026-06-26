@@ -14,10 +14,10 @@ export default class Post extends BaseModel {
   declare content: string
 
   @column()
-  declare userId: number // ← ADD THIS
+  declare userId: number
 
   @belongsTo(() => User)
-  declare user: BelongsTo<typeof User> // ← ADD THIS
+  declare user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
